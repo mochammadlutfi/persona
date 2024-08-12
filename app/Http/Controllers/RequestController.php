@@ -89,99 +89,21 @@ class RequestController extends Controller
      */
     public function show($id)
     {
-        $data = Booking::where('id', $id)
-        ->withSum([ 'bayar' => fn ($query) => $query->where('status', 'setuju')], 'jumlah')
-        ->first();
+        $data = Pengajuan::where('id', $id)->first();
 
-        return view('landing.booking.show',[
+        return view('landing.request.show',[
             'data' => $data
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    
+    public function user()
     {
-        $data = Ekskul::where('id', $id)->first();
-        $pembina = User::where('level', 'pembina')->orderBy('nama', 'ASC')->get();
-        return view('ekskul.edit',[
-            'pembina' => $pembina,
+        $data = Pengajuan::orderBY('id', 'DESC')->get();
+
+        return view('landing.request.user',[
             'data' => $data
         ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        // dd($request->all());
-        $rules = [
-            'nama' => 'required',
-            'pembina_id' => 'required',
-            'deskripsi' => 'required',
-            'tempat' => 'required',
-            'jadwal' => 'required',
-            'mulai' => 'required',
-            'selesai' => 'required',
-        ];
-
-        $pesan = [
-            'nama.required' => 'Nama Wajib Diisi!',
-            'pembina_id.required' => 'Pembina Wajib Diisi!',
-            'deskripsi.required' => 'Deskripsi Wajib Diisi!',
-            'tempat.required' => 'Tempat Wajib Diisi!',
-            'mulai.required' => 'Jam Mulai Wajib Diisi!',
-            'selesai.required' => 'Jam Selesai Wajib Diisi!',
-        ];
-
-
-        $validator = Validator::make($request->all(), $rules, $pesan);
-        if ($validator->fails()){
-            return back()->withInput()->withErrors($validator->errors());
-        }else{
-            DB::beginTransaction();
-            try{
-
-                $data = Ekskul::where('id', $id)->first();
-                $data->nama = $request->nama;
-                $data->pembina_id = $request->pembina_id;
-                $data->deskripsi = $request->deskripsi;
-                $data->tempat = $request->tempat;
-                $data->jadwal = json_encode($request->jadwal);
-                $data->mulai = $request->mulai;
-                $data->selesai = $request->selesai;
-                $data->status = $request->status;
-                if($request->foto){
-                    if(!empty($data->foto)){
-                        $cek = Storage::disk('public')->exists($data->foto);
-                        if($cek)
-                        {
-                            Storage::disk('public')->delete($data->foto);
-                        }
-                    }
-                    $fileName = time() . '.' . $request->foto->extension();
-                    Storage::disk('public')->putFileAs('uploads/ekskul', $request->foto, $fileName);
-                    $data->foto = '/uploads/ekskul/'.$fileName;
-                }
-                $data->save();
-
-            }catch(\QueryException $e){
-                DB::rollback();
-                back()->withInput()->withErrors($validator->errors());
-            }
-
-            DB::commit();
-            return redirect()->route('ekskul.index');
-        }
     }
     
     private function getNumber()

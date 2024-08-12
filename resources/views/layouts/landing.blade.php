@@ -58,7 +58,7 @@
                             @if(auth()->guard('web')->check())
                             <li class="nav-main-item">
                                 <a class="nav-main-link" href="{{ route('request.index') }}">
-                                    <span class="nav-main-link-name">Request Kelas</span>
+                                    <span class="nav-main-link-name">Program Inhouse</span>
                                 </a>
                             </li>
                             @endif
@@ -93,6 +93,11 @@
                                     <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1"
                                         href="{{ route('user.training') }}">
                                         <span>Kelas Saya</span>
+                                        <i class="fa fa-fw fa-user opacity-25"></i>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1"
+                                        href="{{ route('user.request') }}">
+                                        <span>Pengajuan inhouse</span>
                                         <i class="fa fa-fw fa-user opacity-25"></i>
                                     </a>
                                     <a class="dropdown-item d-flex align-items-center justify-content-between"
