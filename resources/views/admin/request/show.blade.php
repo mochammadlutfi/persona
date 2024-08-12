@@ -19,9 +19,7 @@
             <div class="block-content p-4">
                 <div class="row">
                     <div class="col-md-6">
-                        <x-field-read label="Nama" value="{{ $data->nama }}"/>
-                        <x-field-read label="No HP/WA" value="{{ $data->hp }}"/>
-                        <x-field-read label="Email" value="{{ $data->email }}"/>
+                        <x-field-read label="Konsumen" value="{{ $data->user->nama }}"/>
                         <x-field-read label="Instansi" value="{{ $data->instansi }}"/>
                         <x-field-read label="Tanggal Pengajuan" value="{{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}"/>
                         <x-field-read label="Program Kelas" value="{{ $data->program->nama }}"/>         
@@ -31,7 +29,7 @@
                         <x-field-read label="Jenis" value="{{ $data->jenis }}"/>
                         <x-field-read label="Peserta" value="{{ $data->peserta }}"/>
                         <x-field-read label="Lokasi" value="{{ $data->lokasi }}"/>
-                        <x-field-read label="Harga" value="{{ $data->harga }}"/>
+                        <x-field-read label="Harga" value="Rp {{ number_format($data->harga,0,',','.') }}"/>
                     </div>
                 </div>
             </div>

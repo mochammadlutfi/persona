@@ -22,7 +22,7 @@ class RequestController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Pengajuan::with('program')->orderBy('id', 'DESC')->get();
+            $data = Pengajuan::with(['program', 'user'])->orderBy('id', 'DESC')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){

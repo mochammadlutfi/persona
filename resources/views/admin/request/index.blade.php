@@ -40,8 +40,8 @@
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         }, {
-                            data: 'nama',
-                            name: 'nama'
+                            data: 'user.nama',
+                            name: 'user.nama'
                         }, {
                             data: 'instansi',
                             name: 'instansi'
