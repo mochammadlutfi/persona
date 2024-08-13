@@ -12,7 +12,7 @@ use DataTables;
 use App\Models\User;
 use App\Models\Pengajuan;
 use App\Models\Program;
-use App\Models\payment;
+use App\Models\Payment;
 class RequestController extends Controller
 {
     /**
