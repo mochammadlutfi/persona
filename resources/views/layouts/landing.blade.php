@@ -55,13 +55,11 @@
                                     <span class="nav-main-link-name">Program Kelas</span>
                                 </a>
                             </li>
-                            @if(auth()->guard('web')->check())
                             <li class="nav-main-item">
                                 <a class="nav-main-link" href="{{ route('request.index') }}">
                                     <span class="nav-main-link-name">Program Inhouse</span>
                                 </a>
                             </li>
-                            @endif
                             <li class="nav-main-item">
                                 <a class="nav-main-link" href="{{ route('promo.index') }}">
                                     <span class="nav-main-link-name">Promo</span>

@@ -2,50 +2,54 @@
     <div class="bg-primary">
         <div class="content text-center">
             <div class="pt-5 pb-5">
-                <h1 class="h2 fw-bold text-white mb-2">Pengajuan Kelas</h1>
+                <h1 class="h2 fw-bold text-white mb-2">Program Inhouse</h1>
             </div>
         </div>
     </div>
     <div class="content">
         <div class="block block-rounded">
             <div class="block-content p-4">
-                <form method="post" action="{{ route('request.store') }}">
-                    @csrf
-                    <div class="row">
-                        <div class="col-6">
-                            <x-input-field type="text" id="instansi" name="instansi" label="Instansi" required/>
-                            <x-select-field id="program" name="program" label="Program" :options="$program" />
-                            <x-input-field type="text" id="tgl" name="tgl" label="Tanggal Training" required/>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-4">
-                                <label class="form-label">Media Training</label>
-                                <div class="space-x-2 py-2">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="jenis-offline"
-                                            name="jenis" value="Offline" checked="">
-                                        <label class="form-check-label" for="jenis-offline">Offline</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="jenis-online"
-                                            name="jenis" value="Online">
-                                        <label class="form-check-label" for="jenis-online">Online</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <x-input-field type="number" id="peserta" name="peserta" label="Jumlah Peserta" value="20" min="20" required/>
-                            <div class="mb-4">
-                                <label>Harga</label>
-                                <div class="fw-bold py-2" id="showHarga">Rp. {{ number_format(20*1250000,0,',','.') }}</div>
-                                <input type="hidden" name="harga" value="{{ 20*1250000 }}"/>
-                            </div>
-                        </div>
-                    </div>
-                    <x-input-field type="text" id="lokasi" name="lokasi" label="Lokasi Training" required/>
-                    <button type="submit" class="btn btn-primary">
-                        Simpan
-                    </button>
-                </form>
+                <p>Tata Cara Pemesanan</p>
+                <ol>
+                    <li>Melakukan pendaftaran</li>
+                    <li>mengisi data</li>
+                        <li>menunggu email persetujuan</li>
+                            <li>melakukan pembayaran</li>
+                                <li>menunggu konfirmasi pembayaran</li>
+                                    <li>menunggu pencetakan kwitansi</li>
+                </ol>
+                <p>Pilihan Program Sesuai Kebutuhan Anda</p>
+                <ul>
+                    <li>
+                        <b>Public Speaking Class</b><br/>
+                        Program pelatihan yang dirancang agar berani tampil dan percaya diri dengan materi yang disesuaikan dengan kebutuhan anda
+                    </li>
+                    <li>
+                        <b>Master Of Ceremony Class</b><br/>
+                        Program pelatihan yang dirancang bagi anda MC pemula yang ingin belajar menjadi MC
+                    </li>
+                    <li>
+                        <b>Master Of Ceremony Class</b><br/>
+                        Program pelatihan yang dirancang bagi anda MC pemula yang ingin belajar menjadi MC
+                    </li>
+                    <li>
+                        <b>Effective Negotiation Skills</b><br/>
+                        Kelas ini membantu anda agar mampu menguasai prinsip & teknik negosiasi secara efektif agar negosiasi dan lobi yang anda lakukan bisa berjalan sukses dan mencapai hasil terbaik.
+                    </li>
+                    <li>
+                        Etiquette For Public Speaker
+                            <br/>Program pelatihan yang dirancang agar peserta mampu memiliki sikap dan etiket yang berkelas dan profesional.
+                        
+                    </li>
+                    <li>
+                        <b>Impressive Public Speaking</b><br/>
+                        Kelas ini membantu anda agar mampu memberikan penampilan terbaik agar berani tampil dan percaya diri
+                    </li>
+                    
+                </ul>
+                <a href="{{ route('request.create')}}" class="btn btn-primary">
+                DAFTAR SEKARANG
+                </a>
             </div>
         </div>
     </div>

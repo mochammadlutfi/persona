@@ -267,4 +267,5 @@ class PembayaranController extends Controller
             'pesan' => 'Data Berhasil Dihapus!',
         ]);
     }
+
 }

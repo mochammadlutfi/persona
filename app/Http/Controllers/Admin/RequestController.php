@@ -61,7 +61,6 @@ class RequestController extends Controller
     {
         $data = Pengajuan::where('id', $id)
         ->first();
-
         return view('admin.request.show',[
             'data' => $data,
         ]);
@@ -182,5 +181,24 @@ class RequestController extends Controller
     public function cek(Request $request)
     {
         dd($request->all());
+    }
+
+    
+    
+    public function status($id, Request $request)
+    {
+        // dd($request->all());
+        DB::beginTransaction();
+        try{
+            $data = Pengajuan::where('id', $id)->first();
+            $data->status = $request->status;
+            $data->save();
+        }catch(\QueryException $e){
+            DB::rollback();
+            dd($e);
+        }
+
+        DB::commit();
+        return redirect()->back();
     }
 }

@@ -10,6 +10,7 @@
     'disabled' => false,
     'isAjax' => false,
     'inputClass' => '',
+    'readonly' => false
 ])
 <div class="mb-4">
     <label class="form-label" for="field-{{ $id }}">{{ $label }}
@@ -18,7 +19,7 @@
         @endif
     </label>
     <input type="{{ $type }}" class="form-control {{ $inputClass ?? '' }} {{ $errors->has($name) ? 'is-invalid' : '' }}" id="field-{{ $id }}" name="{{ $name }}" 
-    placeholder="{{ $placeholder ?? '' }}" max="{{ $max }}" value="{{ $value ?? old($name) }}">
+    placeholder="{{ $placeholder ?? '' }}" max="{{ $max }}" value="{{ $value ?? old($name) }}" {{ $readonly ?  'readonly="readonly"' : ''}}>
     @if($isAjax == false && $errors->has($name))
         <x-input-error :messages="$errors->get($name)" class="mt-2" />
     @else

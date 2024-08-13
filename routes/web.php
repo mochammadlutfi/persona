@@ -28,6 +28,7 @@ Route::prefix('/training')->name('training.')->group(function () {
 
 Route::prefix('/request')->name('request.')->group(function () {
     Route::get('/','RequestController@index')->name('index');
+    Route::get('/create','RequestController@create')->middleware('auth')->name('create');
     Route::post('/store','RequestController@store')->name('store');
 });
 
@@ -55,6 +56,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/pengajuan-saya','RequestController@user')->name('user.request');
     Route::get('/pengajuan-saya/{id}','RequestController@show')->name('user.request.show');
+    Route::post('pengajuan-saya/{id}/bayar','RequestController@bayar')->name('user.request.bayar');
 });
 
 Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
@@ -105,6 +107,13 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
                 Route::get('/{id}/peserta/{user}/certificate','UserTrainingController@certificate')->name('peserta.certificate');
             });
 
+            Route::name('profil.')->group(function () {
+                Route::get('/profil','ProfilController@edit')->name('edit');
+                Route::post('/profil','ProfilController@update');
+                
+                Route::get('/password','ProfilController@password')->name('password');
+                Route::post('/password','ProfilController@updatePassword');
+            });
 
             Route::prefix('/promo')->name('promo.')->group(function () {
                 Route::get('/','PromoController@index')->name('index');
@@ -128,6 +137,7 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
             Route::prefix('/pendaftaran')->name('payment.')->group(function () {
                 Route::get('/','PembayaranController@index')->name('index');
                 Route::get('/create','PembayaranController@create')->name('create');
+                Route::get('/report','PembayaranController@report')->name('report');
                 Route::post('/store','PembayaranController@store')->name('store');
                 Route::get('/{id}','PembayaranController@show')->name('show');
                 Route::get('/{id}/edit','PembayaranController@edit')->name('edit');
@@ -138,8 +148,10 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
         
             Route::prefix('/request')->name('request.')->group(function () {
                 Route::get('/','RequestController@index')->name('index');
-                Route::get('/{id}','RequestController@show')->name('show');
+                Route::get('/report','PembayaranController@report')->name('report');
                 Route::post('/store','RequestController@store')->name('store');
+                Route::get('/{id}','RequestController@show')->name('show');
+                Route::post('/{id}/status','RequestController@status')->name('status');
             });
 
             Route::prefix('/program')->name('program.')->group(function () {

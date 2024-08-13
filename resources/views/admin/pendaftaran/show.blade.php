@@ -6,12 +6,8 @@
                 @if ($data->status == 'Pending')
                 <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="fa fa-check me-1"></i>
-                    Terima
+                    Konfirmasi
                   </button>
-                <button type="button" class="btn btn-sm btn-danger" onclick="addPayment()">
-                    <i class="fa fa-times me-1"></i>
-                    Tolak
-                </button>
                 @endif
             </div>
         </div>

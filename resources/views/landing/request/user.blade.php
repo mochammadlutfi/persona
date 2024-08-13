@@ -19,6 +19,7 @@
                                     <th>Tgl Training</th>
                                     <th>Program</th>
                                     <th>Harga</th>
+                                    <th>Status</th>
                                     <th width="100px">Aksi</th>
                                 </tr>
                             </thead>
@@ -40,6 +41,15 @@
                                     </td>
                                     <td>
                                         Rp {{ number_format($d->harga,0,',','.') }}
+                                    </td>
+                                    <td>
+                                        @if ($d->status == 'Pending')
+                                            <span class="badge bg-warning">Menunggu</span>
+                                        @elseif ($d->status == 'Disetujui')
+                                        <span class="badge bg-success">Disetujui</span>
+                                        @elseif ($d->status == 'Ditolak')
+                                        <span class="badge bg-danger">Ditolak</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{ route('user.request.show', $d->id)}}" class="btn btn-primary">

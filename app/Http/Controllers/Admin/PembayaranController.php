@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 use Carbon\Carbon;
 use Storage;
 use DataTables;
-
+use PDF;
 use App\Models\User;
 use App\Models\Training;
 use App\Models\UserTraining;
@@ -337,5 +337,24 @@ class PembayaranController extends Controller
         }else{
             return $code . date('ym') .'/'. sprintf("%05s", $no);
         }
+    }
+
+    public function report(Request $request)
+    {
+        $tgl = explode(" - ",$request->tgl);
+        $data = UserTraining::with('user')
+        ->whereBetween('tgl', $tgl)
+        ->latest()->get();
+        $config = [
+            'format' => 'A4-L' // Landscape
+        ];
+
+        $pdf = PDF::loadView('reports.pendaftaran', [
+            'data' => $data,
+            'tgl' =>$tgl
+        ], [ ], $config);
+
+        return $pdf->stream('Laporan Pesanan.pdf');
+
     }
 }

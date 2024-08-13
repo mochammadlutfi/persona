@@ -12,6 +12,7 @@ use DataTables;
 use App\Models\User;
 use App\Models\Pengajuan;
 use App\Models\Program;
+use App\Models\payment;
 class RequestController extends Controller
 {
     /**
@@ -21,9 +22,14 @@ class RequestController extends Controller
      */
     public function index(Request $request)
     {
+        return view('landing.request.index');
+    }
+
+    public function create(Request $request)
+    {
         $program = Program::select('id as value', 'nama as label')->get()->toArray();
 
-        return view('landing.request.index', compact('program'));
+        return view('landing.request.create', compact('program'));
     }
 
     /**
@@ -59,7 +65,7 @@ class RequestController extends Controller
             DB::beginTransaction();
             try{
                 $tgl =  Carbon::parse($request->tgl.' '.$request->waktu);
-                // dd($test);
+                
                 $data = new Pengajuan();
                 $data->user_id = auth()->guard('web')->user()->id;
                 $data->instansi = $request->instansi;
@@ -69,6 +75,7 @@ class RequestController extends Controller
                 $data->lokasi = $request->lokasi;
                 $data->peserta = $request->peserta;
                 $data->harga = $request->harga;
+                $data->status = 'Menunggu';
                 $data->save();
 
             }catch(\QueryException $e){
@@ -91,8 +98,30 @@ class RequestController extends Controller
     {
         $data = Pengajuan::where('id', $id)->first();
 
+
+        $bank = Collect([
+            [
+                'img' => '/images/bca.png',
+                'nama' => 'Bank BCA',
+                'rek' => '0267141517',
+                'an' => 'Scoria Novrisa Dewi'
+            ],
+            [
+                'img' => '/images/bni.png',
+                'nama' => 'Bank BNI',
+                'rek' => '0267141517',
+                'an' => 'Scoria Novrisa Dewi'
+            ],
+            [
+                'img' => '/images/mandiri.png',
+                'nama' => 'Bank Mandiri',
+                'rek' => '0267141517',
+                'an' => 'Scoria Novrisa Dewi'
+            ],
+        ]);
         return view('landing.request.show',[
-            'data' => $data
+            'data' => $data,
+            'bank' => $bank
         ]);
     }
 
@@ -120,6 +149,66 @@ class RequestController extends Controller
             }
         }else{
             return $code . date('ym') .'/'. sprintf("%05s", $no);
+        }
+    }
+
+    
+    public function bayar(Request $request, $id)
+    {
+        // dd($request->all());
+        $rules = [
+            'nama' => 'required',
+            'tgl' => 'required',
+            'jumlah' => 'required',
+            'bank' => 'required',
+            'bukti' => 'required',
+        ];
+
+        $pesan = [
+            'nama.required' => 'Nama Pengirim Wajib Diisi!',
+            'bank.required' => 'Bank Tujuan Wajib Diisi!',
+            'tgl.required' => 'Tanggal Bayar Wajib Diisi!',
+            'jumlah.required' => 'Jumlah Wajib Diisi!',
+            'bukti.required' => 'Bukti Pembayaran Wajib Diisi!',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $pesan);
+        if ($validator->fails()){
+            return response()->json([
+                'fail' => true,
+                'errors' => $validator->errors()
+            ]);
+        }else{
+            DB::beginTransaction();
+            try{
+
+                $data = new Payment();
+                $data->request_id = $id;
+                $data->pengirim = $request->nama;
+                $data->bank = $request->bank;
+                $data->tgl = Carbon::parse($request->tgl);
+                $data->jumlah = $request->jumlah;
+                $data->status = 'Pending';
+
+                if($request->bukti){
+                    $fileName = time() . '.' . $request->bukti->extension();
+                    Storage::disk('public')->putFileAs('uploads/pembayaran', $request->bukti, $fileName);
+                    $data->bukti = '/uploads/pembayaran/'.$fileName;
+                }
+                $data->save();
+
+            }catch(\QueryException $e){
+                DB::rollback();
+                return response()->json([
+                    'fail' => true,
+                    'errors' => $e
+                ]);
+            }
+
+            DB::commit();
+            return response()->json([
+                'fail' => false,
+            ]);
         }
     }
 }

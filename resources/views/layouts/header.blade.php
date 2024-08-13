@@ -32,12 +32,12 @@
                     </div>
                     <div class="p-2">
                         <a class="dropdown-item d-flex align-items-center justify-content-between space-x-1"
-                            href="{{ route('admin.profile.edit') }}">
+                            href="{{ route('admin.profil.edit') }}">
                             <span>Profil</span>
                             <i class="fa fa-fw fa-user opacity-25"></i>
                         </a>
                         <a class="dropdown-item d-flex align-items-center justify-content-between"
-                            href="{{ route('admin.password') }}">
+                            href="{{ route('admin.profil.password') }}">
                             <span>Ubah Password</span>
                             <i class="fa fa-fw fa-envelope-open opacity-25"></i>
                         </a>

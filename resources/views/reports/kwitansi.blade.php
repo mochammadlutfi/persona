@@ -23,7 +23,7 @@
 <html>
 
 <head>
-    <title>Invoice {{ $data->nomor }}</title>
+    <title>KWITANSI {{ $data->nomor }}</title>
 
     {{-- <link rel="stylesheet" href="/css/bootstrap.css"> --}}
 </head>

@@ -26,4 +26,7 @@ class Pengajuan extends Model
         return $this->belongsTo(Program::class, 'program_id');
     }
 
+    public function pembayaran(){
+        return $this->hasMany(Payment::class, 'request_id');
+    }
 }
