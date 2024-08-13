@@ -52,9 +52,9 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('user.request.show', $d->id)}}" class="btn btn-primary">
+                                <a href="{{ route('admin.request.show', $d->id)}}" class="btn btn-primary">
                                     Detail
-                                </a>
+                                </a> 
                             </td>
                         </tr>
                             
