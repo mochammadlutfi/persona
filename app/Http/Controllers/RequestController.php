@@ -75,7 +75,7 @@ class RequestController extends Controller
                 $data->lokasi = $request->lokasi;
                 $data->peserta = $request->peserta;
                 $data->harga = $request->harga;
-                $data->status = 'Menunggu';
+                $data->status = 'Pending';
                 $data->save();
 
             }catch(\QueryException $e){
