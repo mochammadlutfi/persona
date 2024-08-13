@@ -152,6 +152,7 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
                 Route::post('/store','RequestController@store')->name('store');
                 Route::get('/{id}','RequestController@show')->name('show');
                 Route::post('/{id}/status','RequestController@status')->name('status');
+                Route::post('{id}/bayar','RequestController@bayar')->name('bayar');
             });
 
             Route::prefix('/program')->name('program.')->group(function () {

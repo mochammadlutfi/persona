@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use DataTables;
 use App\Models\Pengajuan;
+use App\Models\Payment;
 use App\Models\User;
 use App\Models\UserTraining;
 
@@ -21,34 +22,9 @@ class RequestController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $data = Pengajuan::with(['program', 'user'])->orderBy('id', 'DESC')->get();
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    // $btn = '<div class="dropdown">
-                    //     <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" id="dropdown-default-outline-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    //         Aksi
-                    //     </button>
-                    //     <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-outline-primary" style="">';
-                    //     $btn .= '<a class="dropdown-item" href="'. route('admin.booking.show', $row->id).'"><i class="si si-eye me-1"></i>Detail</a>';
-                    //     $btn .= '<a class="dropdown-item" href="'. route('admin.booking.edit', $row->id).'"><i class="si si-note me-1"></i>Ubah</a>';
-                    //     $btn .= '<a class="dropdown-item" href="javascript:void(0)" onclick="hapus('. $row->id.')"><i class="si si-trash me-1"></i>Hapus</a>';
-                    // $btn .= '</div></div>';
-                    $btn = '<a class="btn btn-sm btn-primary" href="'. route('admin.request.show', $row->id).'"><i class="si si-eye me-1"></i>Detail</a>';
+        $data = Pengajuan::with(['program', 'user'])->orderBy('id', 'DESC')->get();
 
-                    return $btn; 
-                })
-                ->editColumn('tgl', function ($row) {
-                    $tgl =  Carbon::parse($row->tgl)->translatedFormat('d F Y H:i');
-
-                    return $tgl .' WIB';
-                })
-                ->rawColumns(['action', 'tgl']) 
-                ->make(true);
-        }
-
-        return view('admin.request.index');
+        return view('admin.request.index', compact('data'));
     }
 
     /**
@@ -191,6 +167,24 @@ class RequestController extends Controller
         DB::beginTransaction();
         try{
             $data = Pengajuan::where('id', $id)->first();
+            $data->status = $request->status;
+            $data->save();
+        }catch(\QueryException $e){
+            DB::rollback();
+            dd($e);
+        }
+
+        DB::commit();
+        return redirect()->back();
+    }
+
+    
+    public function bayar($id, Request $request)
+    {
+        // dd($request->all());
+        DB::beginTransaction();
+        try{
+            $data = Payment::where('id', $id)->first();
             $data->status = $request->status;
             $data->save();
         }catch(\QueryException $e){

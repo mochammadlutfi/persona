@@ -18,6 +18,10 @@ class Pengajuan extends Model
     ];
 
 
+    protected $appends = [
+        'status_pembayaran',
+    ];
+
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -28,5 +32,19 @@ class Pengajuan extends Model
 
     public function pembayaran(){
         return $this->hasMany(Payment::class, 'request_id');
+    }
+
+    public function getStatusPembayaranAttribute(){
+
+        if($this->pembayaran->count()){
+            if($this->pembayaran->sum('jumlah') == $this->total){
+                return 'Lunas';
+            }else{
+                return 'Sebagian';
+            }
+
+        }else{
+            return 'Belum Bayar';
+        }
     }
 }

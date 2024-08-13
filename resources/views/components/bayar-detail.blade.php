@@ -18,8 +18,6 @@
                 <div class="block-content">
                     <div class="row">
                         <div class="col-md-6">
-                            <x-field-read label="Nama Peserta" value="{{ $data->user->nama }}"/>
-                            <x-field-read label="Program" value="{{ $data->program->nama }}"/>
                             <x-field-read label="Tanggal" value="{{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}"/>
                             <x-field-read label="Tujuan Bayar" value="{{ $data->bank }}"/>
                             <x-field-read label="Nama Pengirim" value="{{ $data->pengirim }}"/>
@@ -31,8 +29,8 @@
                                         <span class="badge bg-danger px-3">Belum Bayar</span>
                                     @elseif($data->status == 'Pending')
                                     <span class="badge bg-warning px-3">Pending</span>
-                                    @elseif($data->status == 'Lunas')
-                                    <span class="badge bg-success px-3">Lunas</span>
+                                    @elseif($data->status == 'Disetujui')
+                                    <span class="badge bg-success px-3">Diterima</span>
                                     @elseif($data->status == 'Ditolak')
                                     <span class="badge bg-danger px-3">Ditolak</span>
                                     @else
@@ -49,15 +47,9 @@
                         </div>
                     </div>
                 </div>
-                @if ($data->status != 'Disetujui')
-                <form method="POST" action="{{ route('user.project.status', $data->id)}}">
+                @if ($data->status != 'Disetujui' && request()->is('admin/*'))
+                <form method="POST" action="{{ route('admin.request.bayar', $data->id)}}">
                     @csrf
-                    <div class="block-content">
-                       <div class="mb-4">
-                        <label class="form-label" for="field-catatan">Catatan</label>
-                        <textarea class="form-control" name="catatan" id="field-catatan"></textarea>
-                        </div>     
-                    </div>
                     <div class="block-content block-content-full block-content-sm text-end border-top">
                         <button type="submit" name="status" value="Ditolak" class="btn btn-alt-danger px-4 rounded-pill" data-bs-dismiss="modal">
                             <i class="fa fa-times me-1"></i>
@@ -65,7 +57,7 @@
                         </button>
                         <button type="submit" name="status" value="Disetujui" class="btn btn-alt-primary px-4 rounded-pill" id="btn-simpan">
                             <i class="fa fa-check me-1"></i>
-                            Setuju
+                            Terima
                         </button>
                     </div>
                 </form>

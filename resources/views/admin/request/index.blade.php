@@ -15,11 +15,50 @@
                             <th>Instansi</th>
                             <th>Tgl Training</th>
                             <th>Program</th>
-                            <th>Jenis Training</th>
+                            <th>Harga</th>
+                            <th>Status</th>
                             <th width="100px">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data as $d)
+                        <tr>
+                            <td>
+                                {{ $loop->index+1}}
+                            </td>
+                            <td>
+                                {{ $d->user->nama }}
+                            </td>
+                            <td>
+                                {{ $d->instansi }}
+                            </td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($d->tgl)->translatedFormat('d F Y') }}
+                            </td>
+                            <td>
+                                {{ $d->jenis }}<br/>
+                                {{ $d->program->nama }}
+                            </td>
+                            <td>
+                                Rp {{ number_format($d->harga,0,',','.') }}
+                            </td>
+                            <td>
+                                @if ($d->status == 'Pending')
+                                    <span class="badge bg-warning">Menunggu</span>
+                                @elseif ($d->status == 'Disetujui')
+                                <span class="badge bg-success">Disetujui</span>
+                                @elseif ($d->status == 'Ditolak')
+                                <span class="badge bg-danger">Ditolak</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('user.request.show', $d->id)}}" class="btn btn-primary">
+                                    Detail
+                                </a>
+                            </td>
+                        </tr>
+                            
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -30,35 +69,8 @@
         <script>
             $(function () {
                 $('.datatable').DataTable({
-                    processing: true,
-                    serverSide: true,
                     dom: "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>><'row'<'col-sm-12'tr>><'r" +
                             "ow'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-                    ajax: "{{ route('admin.request.index') }}",
-                    columns: [
-                        {
-                            data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
-                        }, {
-                            data: 'user.nama',
-                            name: 'user.nama'
-                        }, {
-                            data: 'instansi',
-                            name: 'instansi'
-                        }, {
-                            data: 'program.nama',
-                            name: 'program.nama'
-                        }, {
-                            data: 'tgl',
-                            name: 'tgl'
-                        },  {
-                            data: 'jenis',
-                            name: 'jenis'
-                        }, {
-                            data: 'action',
-                            name: 'action'
-                        }
-                    ]
                 });
             });
         </script>

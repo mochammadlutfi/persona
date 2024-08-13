@@ -50,7 +50,22 @@
                         <x-field-read label="Instansi" value="{{ $data->instansi }}"/>
                         <x-field-read label="Tanggal Pengajuan" value="{{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}"/>
                             <x-field-read label="Jenis" value="{{ $data->jenis }}"/>
-                        <x-field-read label="Program Kelas" value="{{ $data->program->nama }}"/>         
+                        <x-field-read label="Program Kelas" value="{{ $data->program->nama }}"/>  
+                        <x-field-read label="Status">
+                            <x-slot name="value">
+                                @if($data->status == 'Belum Bayar')
+                                    <span class="badge bg-danger px-3">Belum Bayar</span>
+                                @elseif($data->status == 'Pending')
+                                <span class="badge bg-warning px-3">Pending</span>
+                                @elseif($data->status == 'Disetujui')
+                                <span class="badge bg-success px-3">Disetujui</span>
+                                @elseif($data->status == 'Ditolak')
+                                <span class="badge bg-danger px-3">Ditolak</span>
+                                @else
+                                <span class="badge bg-secondary px-3">Batal</span>
+                                @endif
+                            </x-slot>
+                        </x-field-read>         
                     </div>
                     <div class="col-md-6">               
                         <x-field-read label="Tanggal Training" value="{{ \Carbon\Carbon::parse($data->tgl)->translatedFormat('d F Y H:i') }} WIB"/>
@@ -58,6 +73,18 @@
                         <x-field-read label="Lokasi" value="{{ $data->lokasi }}"/>
                         <x-field-read label="Kota" value="Kota Bandung"/>
                         <x-field-read label="Harga" value="Rp {{ number_format($data->harga,0,',','.') }}"/>
+                        <x-field-read label="Status Pembayaran">
+                            <x-slot name="value">
+                                @if($data->pembayaran->whereIn('status',['Pending', 'Disetujui'])->sum('jumlah') == $data->harga)
+                                    <span class="badge bg-success px-3">Lunas</span>
+                                @elseif($data->pembayaran->whereIn('status',['Pending', 'Disetujui'])->sum('jumlah') < $data->harga &&
+                                $data->pembayaran->whereIn('status',['Pending', 'Disetujui'])->sum('jumlah') >0)
+                                <span class="badge bg-warning px-3">Sebagian</span>
+                                @else
+                                <span class="badge bg-danger px-3">Belum Bayar</span>
+                                @endif
+                            </x-slot>
+                        </x-field-read>         
                     </div>
                 </div>
             </div>
@@ -69,7 +96,7 @@
             </div>
         </div>
         <div class="block block-rounded">
-            <div class="block-content p-3">
+            <div class="block-content p-0">
                 <table class="table table-bordered datatable w-100">
                     <thead>
                         <tr>
@@ -106,9 +133,10 @@
                                 @endif
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalBayar{{ $loop->index}}">
                                     Detail
                                   </button>
+                                <x-bayar-detail :data="$d" id="modalBayar{{ $loop->index}}"/>
                             </td>
                         </tr>
                         @endforeach
