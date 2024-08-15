@@ -31,16 +31,21 @@
     body {
         font-size: 12pt;
     }
+    @page {
+        size: 8.50in 10.83in;
+        margin: 0px !important;
+        margin-top: 0px !important;
+    }
 
     #table-header {
         width: 100%;
         border-collapse: collapse;
+        background: #f2f2f2;
     }
 
     #table-header th, #table-header td {
-        padding: 8px;
+        padding: 10px;
         text-align: left;
-        border-bottom: 2px solid red;
     }
 
     #table-header .logo{
@@ -49,7 +54,8 @@
     }
 
     #table-header .info{
-        text-align: right;
+        text-align: left;
+        padding: 10px;
     }
     #table-header h1{
         margin-bottom: 5px;
@@ -62,10 +68,14 @@
         font-weight: 600;
     }
 
+    .container {
+        padding: 10mm;
+    }
 
     #table-produk {
         width: 100%;
         border-collapse: collapse;
+        border: 1px solid black;
     }
 
     #table-produk th, {
@@ -75,12 +85,13 @@
         border-top: 1px solid red;
     }
 
-    #table-produk tbody td {
+    #table-produk tr{
+    }
+
+    #table-produk td {
         padding: 8px;
         text-align: left;
-        font-size: 14pt;
-        border-top: 1px solid red;
-        background-color: #faf3f3;
+        font-size: 12pt;
     }
     #table-produk tbody tr:nth-child(even){
         background-color: none;
@@ -94,126 +105,96 @@
     }
 </style>
 <body>
+    <table id="table-header">
+        <tr>
+            <td width="25%">
+                <img src="/images/logo.png" width="190px"/>
+            </td>
+            <td class="info" width="50%">
+                <h2 style="font-size: 12pt; font-weight:bold;">
+                    CV. TRANSFORMASI AKSELERASI PRIMA
+                </h1>
+                <h3 style="font-size: 10pt; font-weight:bold;">
+                    Persona Public Speaking
+                </h2>
+                <p style="font-size:10pt;">HP 0822-1188-2728</p>
+                <P style="font-size:10pt;">Email: PersonaPublicSpeaking@gmail.com</P>
+            </td>
+            <td>
+                <p style="font-size: 12pt;border-bottom:1px solid black;">KUITANSI</p>
+                <p style="font-size: 12pt;">RECEIPT</p>
+                <p style="font-size: 12pt;border-bottom:1px solid black;">NO</p>
+                <p style="font-size: 12pt;">NUMBER</p>
+            </td>
+        </tr>
+    </table>
     <div class="container">
-        <table id="table-header">
+        <table id="table-produk">
             <tr>
-                <td width="30%">
-                    <img src="/images/logo.png"/>
-                    <div style="padding-left: 200px">
-                        <p style="font-weight: bold;margin-bottom:0px;font-size:12pt">    BICARA SEMAKIN BERMAKNA</p>
+                <td width="35%">
+                    <div style="border-bottom:1px solid black;">Sudah Terima Dari</div>
+                    <div style="">Received From</div>
+                </td>
+                <td>:</td>
+                <td>
+                    {{ ucwords($data->user->nama)}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="border-bottom:1px solid black;">Banyaknya Uang</div>
+                    <div style="">Amount Received</div>
+                </td>
+                <td>:</td>
+                <td>
+                    {{ ucwords(terbilang($data->training->harga))  }} Rupiah
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="border-bottom:1px solid black;">Untuk Pembayaran</div>
+                    <div style="">In Payment Of</div>
+                </td>
+                <td>:</td>
+                <td>
+                    Pembayaran Pelatihan {{ ucwords($data->training->nama) }}
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <table width="100%">
+            <tr>
+                <td style="background-color: #f2f2f2; width:40%;padding:10px;">
+                    <div style="font-size:20pt;font-weight:bold;">
+                        Rp {{ number_format($data->training->harga,0,',','.') }},-
                     </div>
                 </td>
-                <td class="info" width="70%">
-                    <h1>INVOICE</h1>
-                    <p style="font-weight: bold;margin-bottom:0px;font-size:12pt">INVOICE NO : {{ $data->nomor}} </p>
-                </td>
-            </tr>
-        </table>
-        <br/>
-        <table width="100%">
-            <tr>
-                <td width="50%">
-                    <p class="h4 fw-bold" style="font-weight: bold;">
-                        Kepada:
-                    </p>
-                    <p class="h4 fw-bold" style="font-weight: bold;">
-                        {{ $data->user->nama }}
-                    </p>
-                </td>
-                <td>
-                    <p style="font-size:20pt; font-weight: bold;">
-                        Total
-                    </p>
-                    <p style="font-size:20pt; font-weight: bold;margin-bottom:10px">
-                        Rp {{ number_format($data->training->harga,0,',','.') }}
-                    </p>
-                    <p>({{ ucwords(terbilang($data->training->harga)) }})</p>
-                    <br/>
-                    <table width="100%">
-                        <tr>
-                            <td style="font-weight:bold; padding:8px;font-size:14pt;background-color:black;color:white">
-                                INVOICE DATE : {{ \Carbon\Carbon::parse($data->tgl)->translatedFormat('d F Y') }}
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <br/>
-        <br/>
-        {{-- <hr/> --}}
-        <table id="table-produk">
-            <thead>
-                <tr>
-                    <th>Item Description</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ $data->training->nama }}</td>
-                    <td>Rp {{ number_format($data->training->harga,0,',','.') }}</td>
-                    <td>1</td>
-                    <td>Rp {{ number_format($data->training->harga,0,',','.') }}</td>
-                </tr>
-                <tr>
-                    <td colspan="4" style="background: none"></td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="4">
-                        Rp {{ number_format($data->training->harga,0,',','.') }}
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-        <br/>
-        <br/>
-        <table style="float: left;width: 100%;">
-            <tr>
-                <td width="70%"></td>
-                <td style="text-align:center;">
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <img src="/images/ttd.png"/>
-                    <br/>
-                    <br/>
-                    <hr/>
-                    <p style="font-size: 11pt;">
-                        Scoria Novrisa Dewi, S.Par., MM
-                    </p>
-                    <p style="font-size: 9pt;">
-                        (Director)
-                    </p>
+                <td width="1%"></td>
+                <td style="text-align: right">
+                    Bandung, {{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}
                 </td>
             </tr>
         </table>
         <table width="100%">
             <tr>
+                <td style="font-size: 9pt;width:70%">
+                    <p>Catatan:</p>
+                    <p>Pembayaran Bisa Melalui:<br/>
+                        Bank Mandiri 132-0024-213929 a.n CV. Transformasi Akselerasi Prima<br/>
+                        Bukti Pembayaran <b>Wajib dikonfirmasikan</b> via email:
+                        <br/>
+                        <b>personapublicspeaking@gmail.com</b> atau via <b>Whatsapp ( 0822-1188-2728 )</b>
+                    </p>
+                </td>
+                <td style="font-size: 10pt;text-align: center">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div style="border-bottom:1px solid black">Scoria Novrisa Dewi, S.Par., MM</div>
+                    <div style="">Direktur</div>
+                </td>
             </tr>
         </table>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <div style="background-color: #ff4f5a;color:white; padding:20px;">
-            <p style="font-size: 11pt;font-weight:bold;">
-                Terms & Conditions:
-            </p>
-            <p style="font-size: 11pt;line-height:20pt;">
-                Semua transaksi Pembayaran dilakukan dalam mata uang Rupiah Indonesia.<br/>
-Konfirmasi pembayaran dapat dilakukan melalui email<br/>
-personapublicspeaking@gmail.com atau melalui whatsapp 0822-1188-2728 <br/>
-            </p>
-            <p style="font-size: 16pt;font-weight:bold;">
-                Thank you for trusting us as your training partner.
-            </p>
-        </div>
     </div>
 
 </body>

@@ -285,6 +285,22 @@ class TrainingController extends Controller
         return $pdf->stream('Invoice '. $data->nomor.'.pdf');
     }
 
+    public function kwitansi($id, Request $request)
+    {
+        $user = auth()->guard('web')->user();
+
+        $data = UserTraining::where('id', $id)->first();
+
+        $config = [
+            'format' => 'A5-L',
+            'margin-top' => 0
+        ];
+        $pdf = PDF::loadView('reports.kwitansi', [
+            'data' => $data,
+        ], [ ], $config);
+
+        return $pdf->stream('Kwitansi '. $data->nomor.'.pdf');
+    }
     private function getNumber()
     {
         $q = UserTraining::select(DB::raw('MAX(RIGHT(nomor,5)) AS kd_max'));

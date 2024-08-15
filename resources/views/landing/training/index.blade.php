@@ -9,11 +9,36 @@
     </div>
     <div class="content content-full">
         <div class="row">
-            @foreach ($data as $d)
-                <div class="col-md-4">
-                    <x-card-training :data="$d" />
+            <div class="col-md-4">
+                <div class="block block-rounded">
+                    <div class="block-header border-bottom border-3">
+                        <h3 class="block-title">
+                            Panduan Pemesanan Kelas
+                        </h3>
+                    </div>
+                    <div class="block-content p-2">
+                        <ol>
+                            <li>Pilih program kelas sesuai minat</li>
+                            <li>Buat akun apabila belum punya akun persona</li>
+                            <li>Lakukan Pemesanan kelas</li>
+                            <li>Lakukan pembayaran</li>
+                            <li>Lakukan konfirmasi pembayaran</li>
+                            <li>Menunggu verifikasi konfirmasi pembayaran</li>
+                            <li>Selesai</li>
+                        </ol>
+                    </div>
                 </div>
-            @endforeach
+            </div>
+            <div class="col-md-8">
+                
+                <div class="row">
+                    @foreach ($data as $d)
+                        <div class="col-md-6">
+                            <x-card-training :data="$d" />
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 </x-landing-layout>

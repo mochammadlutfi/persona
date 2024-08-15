@@ -41,6 +41,11 @@
                             <a href="{{ route('user.training.invoice', $data->id) }}"  class="btn btn-primary btn-sm">
                                 Download Invoice
                             </a>
+                            @if (!in_array($data->status, ['Belum Bayar', 'Pending', 'Ditolak']))
+                            <a href="{{ route('user.training.kwitansi', $data->id) }}"  class="btn btn-primary btn-sm">
+                                Download Kuitansi
+                            </a>
+                            @endif
                         </div>
                     </div>
                     <div class="block-content p-3">

@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
         
     Route::get('/pelatihan-saya','TrainingController@user')->name('user.training');
     Route::get('/pelatihan-saya/{id}/invoice','TrainingController@invoice')->name('user.training.invoice');
+    Route::get('/pelatihan-saya/{id}/kwitansi','TrainingController@kwitansi')->name('user.training.kwitansi');
     Route::get('/pelatihan-saya/{id}/pembayaran','TrainingController@payment')->name('user.training.payment');
     Route::post('/pelatihan-saya/{id}/update','TrainingController@update')->name('user.training.update');
     Route::post('/pelatihan/simpan','TrainingController@register')->name('user.training.register');    
