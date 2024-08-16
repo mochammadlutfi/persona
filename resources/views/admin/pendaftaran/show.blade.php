@@ -73,11 +73,11 @@
                             <form action="{{ route('admin.payment.status', $data->id )}}" method="POST">
                                 @csrf
                                 <input type="hidden" name="status" value="Lunas"/>
-                                <button type="button" class="btn btn-alt-secondary" data-bs-dismiss="modal">
-                                    Batal
+                                <button type="submit" class="btn btn-danger" name="status" value="Ditolak">
+                                    Tolak
                                  </button>
-                                <button type="submit" class="btn btn-primary">
-                                    Konfirmasi
+                                <button type="submit" value="Diterima" name="status"  class="btn btn-primary">
+                                    Terima
                                 </button>
                             </form>
                         </div>

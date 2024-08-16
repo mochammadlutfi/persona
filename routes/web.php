@@ -21,6 +21,15 @@ Route::post('/login','AuthController@login');
 Route::get('/daftar','AuthController@showRegister')->name('register');
 Route::post('/daftar','AuthController@register');
 
+Route::namespace('Auth')->group(function () {
+    Route::get('/forgot-password', 'PasswordResetLinkController@create')->name('password.request');
+    Route::post('/forgot-password', 'PasswordResetLinkController@store')->name('password.email');
+
+    Route::get('reset-password/{token}', 'NewPasswordController@create')->name('password.reset');
+    Route::post('reset-password', 'NewPasswordController@store')->name('password.store');
+
+});
+
 Route::prefix('/training')->name('training.')->group(function () {
     Route::get('/','TrainingController@index')->name('index');
     Route::get('/{slug}','TrainingController@show')->name('show');
@@ -71,13 +80,6 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
     Route::middleware(['auth:admin'])->group(function () {
         Route::post('/logout','LoginController@logout')->name('logout');
 
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-        Route::get('/password', [ProfileController::class, 'password'])->name('password');
-        Route::post('/password', [ProfileController::class, 'passwordUpdate'])->name('password.update');
-
         Route::middleware('verified')->group(function () {
             Route::get('/beranda','BerandaController@index')->name('beranda');
             
@@ -113,7 +115,7 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
                 Route::post('/profil','ProfilController@update');
                 
                 Route::get('/password','ProfilController@password')->name('password');
-                Route::post('/password','ProfilController@updatePassword');
+                Route::post('/password','ProfilController@passwordUpdate');
             });
 
             Route::prefix('/promo')->name('promo.')->group(function () {

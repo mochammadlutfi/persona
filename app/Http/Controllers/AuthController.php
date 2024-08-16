@@ -131,4 +131,14 @@ class AuthController extends Controller
             return redirect()->route('home');
         }
     }
+
+    public function showForgot(Request $request)
+    {
+
+    }
+
+    public function forgot(Request $request)
+    {
+        
+    }
 }

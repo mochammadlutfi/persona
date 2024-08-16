@@ -75,11 +75,12 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6 text-sm-end push">
-                                        <button type="submit" class="btn btn-lg btn-alt-primary fw-medium">
-                                            Login Sekarang
-                                        </button>
+                                        <a href="{{ route('password.request')}}">Lupa Password</a>
                                     </div>
                                 </div>
+                                <button type="submit" class="btn btn-lg btn-alt-primary fw-medium w-100">
+                                    Login Sekarang
+                                </button>
                             </form>
                             <!-- END Sign In Form -->
                         </div>

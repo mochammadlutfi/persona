@@ -70,7 +70,7 @@ class ProfilController extends Controller
 
     public function password(Request $request): View
     {   
-
+        dd('asd');
         return view('landing.password', [
             'user' => $request->user(),
         ]);

@@ -1,15 +1,13 @@
-<x-landing-layout>
-    <div class="bg-primary">
-        <div class="content text-center">
-            <div class="pt-5 pb-5">
-                <h1 class="h2 fw-bold text-white mb-2">Ubah Password</h1>
+<x-app-layout>
+    <div class="content">
+        <div class="content-heading d-flex justify-content-between align-items-center">
+            <span>Ubah Password</span>
+            <div class="space-x-1">
             </div>
         </div>
-    </div>
-    <div class="content">
         <div class="block block-rounded">
             <div class="block-content p-3">
-                <form method="POST" action="{{ route('profil.password') }}">
+                <form method="POST" action="{{ route('admin.profil.password') }}">
                     @csrf
                     <div class="row mb-4">
                         <label class="col-sm-3 col-form-label" for="field-password">Password</label>
@@ -31,14 +29,12 @@
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                         </div>
                     </div>
-                        <div class="col-sm-6 text-sm-end push">
-                            <button type="submit" class="btn btn-lg btn-alt-primary fw-medium">
-                                Simpan
-                            </button>
-                        </div>
-                    </div>
+                    
+                    <button type="submit" class="btn btn-lg btn-alt-primary fw-medium">
+                        Simpan
+                    </button>
                 </form>
             </div>
         </div>
     </div>
-</x-landing-layout>
+</x-app-layout>
