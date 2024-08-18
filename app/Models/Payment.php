@@ -18,8 +18,8 @@ class Payment extends Model
     ];
 
     
-    public function booking(){
-        return $this->belongsTo(Booking::class, 'booking_id');
+    public function pengajuan(){
+        return $this->belongsTo(Pengajuan::class, 'request_id');
     }
 
 }

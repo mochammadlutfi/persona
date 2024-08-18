@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengajuan-saya','RequestController@user')->name('user.request');
     Route::get('/pengajuan-saya/{id}','RequestController@show')->name('user.request.show');
     Route::post('pengajuan-saya/{id}/bayar','RequestController@bayar')->name('user.request.bayar');
+    Route::get('pengajuan-saya/kwitansi/{id}','RequestController@kwitansi')->name('user.request.kwitansi');
 });
 
 Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
@@ -173,6 +174,7 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
                 Route::post('/{id}/status','RequestController@status')->name('status');
                 Route::post('/{id}/trainer','RequestController@trainer')->name('trainer');
                 Route::post('{id}/bayar','RequestController@bayar')->name('bayar');
+                Route::get('{id}/kwitansi','RequestController@kwitansi')->name('kwitansi');
             });
 
             Route::prefix('/program')->name('program.')->group(function () {

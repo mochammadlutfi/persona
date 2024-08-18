@@ -47,6 +47,23 @@
                         </div>
                     </div>
                 </div>
+                @if($data->status == 'Disetujui')
+                
+                    @if(request()->is('admin/*'))
+                    <div class="block-content block-content-full block-content-sm text-end border-top">
+                        <a  class="btn btn-primary px-4" href="{{ route('admin.request.kwitansi', $data->id) }}">
+                            Kwitansi
+                        </a>
+                    </div>
+                    @else
+                    <div class="block-content block-content-full block-content-sm text-end border-top">
+                        <a  class="btn btn-primary px-4" href="{{ route('user.request.kwitansi', $data->id) }}">
+                            Kwitansi
+                        </a>
+                    </div>
+                    @endif
+                @endif
+
                 @if ($data->status != 'Disetujui' && request()->is('admin/*'))
                 <form method="POST" action="{{ route('admin.request.bayar', $data->id)}}">
                     @csrf

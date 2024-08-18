@@ -19,7 +19,7 @@ use App\Mail\TerimaPengajuan;
 use App\Mail\TolakPengajuan;
 use App\Mail\TrainerPengajuan;
 use Illuminate\Support\Facades\Mail;
-
+use PDF;
 class RequestController extends Controller
 {
     /**
@@ -170,6 +170,20 @@ class RequestController extends Controller
     }
 
     
+    public function kwitansi($id, Request $request)
+    {
+        $data = Payment::where('id', $id)->first();
+
+        $config = [
+            'format' => 'A5-L',
+            'margin-top' => 0
+        ];
+        $pdf = PDF::loadView('reports.kwitansi_request', [
+            'data' => $data,
+        ], [ ], $config);
+
+        return $pdf->stream('Kwitansi Program Inhouse.pdf');
+    }
     
     public function status($id, Request $request)
     {

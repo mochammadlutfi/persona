@@ -13,6 +13,8 @@ use App\Models\User;
 use App\Models\Pengajuan;
 use App\Models\Program;
 use App\Models\Payment;
+
+use PDF;
 class RequestController extends Controller
 {
     /**
@@ -209,6 +211,24 @@ class RequestController extends Controller
             return response()->json([
                 'fail' => false,
             ]);
-        }
+        } 
+    }
+
+    
+    public function kwitansi($id, Request $request)
+    {
+        $user = auth()->guard('web')->user();
+
+        $data = Payment::where('id', $id)->first();
+
+        $config = [
+            'format' => 'A5-L',
+            'margin-top' => 0
+        ];
+        $pdf = PDF::loadView('reports.kwitansi_request', [
+            'data' => $data,
+        ], [ ], $config);
+
+        return $pdf->stream('Kwitansi Program Inhouse.pdf');
     }
 }
