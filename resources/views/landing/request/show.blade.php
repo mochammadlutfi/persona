@@ -65,7 +65,10 @@
                                 <span class="badge bg-secondary px-3">Batal</span>
                                 @endif
                             </x-slot>
-                        </x-field-read>         
+                        </x-field-read>
+                        @if($data->trainer_id)
+                        <x-field-read label="Trainer" value="{{ $data->trainer->nama }}"/>
+                        @endif
                     </div>
                     <div class="col-md-6">               
                         <x-field-read label="Tanggal Training" value="{{ \Carbon\Carbon::parse($data->tgl)->translatedFormat('d F Y H:i') }} WIB"/>

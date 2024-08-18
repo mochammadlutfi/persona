@@ -63,17 +63,17 @@
                             <tbody>
                                 <tr>
                                     <td>1 Hari</td>
-                                    <td>50 Peserta</td>
+                                    <td>20 Peserta</td>
                                     <td>Rp 25 Juta</td>
                                 </tr>
                                 <tr>
                                     <td>1 Hari</td>
-                                    <td>50-100 Peserta</td>
+                                    <td>20-40 Peserta</td>
                                     <td>Rp 50 Juta</td>
                                 </tr>
                                 <tr>
                                     <td>1 Hari</td>
-                                    <td>100-150 Peserta</td>
+                                    <td>40-60 Peserta</td>
                                     <td>Rp 75 Juta</td>
                                 </tr>
                             </tbody>
@@ -114,17 +114,17 @@
                             <tbody>
                                 <tr>
                                     <td>1 Hari</td>
-                                    <td>20 Peserta</td>
+                                    <td>50 Peserta</td>
                                     <td>Rp 25 Juta</td>
                                 </tr>
                                 <tr>
                                     <td>1 Hari</td>
-                                    <td>20-40 Peserta</td>
+                                    <td>50-100 Peserta</td>
                                     <td>Rp 50 Juta</td>
                                 </tr>
                                 <tr>
                                     <td>1 Hari</td>
-                                    <td>40-60 Peserta</td>
+                                    <td>100-150 Peserta</td>
                                     <td>Rp 75 Juta</td>
                                 </tr>
                             </tbody>
@@ -140,6 +140,10 @@
                         </div>
                     </div>
                 </div>
+                <p class="fw-bold">*Lokasi ditentukan oleh customer, tapi jangkauan hanya di Bandung Kota, di luar Bandung Kota belum bisa melakukan pemesanan
+                </p>                    
+                <p class="fw-bold">
+                    *Customer bisa melakukan DP pembayaran minimal 20%</p>
                 <a href="{{ route('request.create')}}" class="btn btn-primary">
                 DAFTAR SEKARANG
                 </a>
