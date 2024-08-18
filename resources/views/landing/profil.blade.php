@@ -9,7 +9,7 @@
     <div class="content">
         <div class="block block-rounded">
             <div class="block-content p-3">
-                <form method="post" action="{{ route('register') }}">
+                <form method="post" action="{{ route('profil.edit') }}">
                     @csrf
                     <div class="row mb-4">
                         <label class="col-sm-3 col-form-label" for="field-nama">Nama Lengkap</label>
@@ -26,8 +26,8 @@
                             <select class="form-select {{ $errors->has('jk') ? 'is-invalid' : '' }}"
                                 id="field-jk" style="width: 100%;" name="jk">
                                 <option value="">Pilih</option>
-                                <option value="L" {{ old('jk' == 'L') ? 'selected' : '' }}>Laki-Laki</option>
-                                <option value="P" {{ old('jk' == 'P') ? 'selected' : '' }}>Perempuan</option>
+                                <option value="L" {{ old('jk', $data->jk) == 'L' ? 'selected' : '' }}>Laki-Laki</option>
+                                <option value="P" {{ old('jk', $data->jk) == 'P' ? 'selected' : '' }}>Perempuan</option>
                             </select>
                             <x-input-error :messages="$errors->get('jk')" class="mt-2" />
                         </div>

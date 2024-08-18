@@ -58,6 +58,12 @@
                             <span class="nav-main-link-name">Promo</span>
                         </a>
                     </li>
+                    <li class="nav-main-item">
+                        <a class="nav-main-link {{ request()->is('admin/laporan') ? ' active' : '' }}" href="{{ route('admin.laporan.index') }}">
+                            <i class="nav-main-link-icon fa fa-print"></i>
+                            <span class="nav-main-link-name">Laporan</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <!-- END Side Navigation -->

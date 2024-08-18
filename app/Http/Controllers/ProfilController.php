@@ -35,15 +35,16 @@ class ProfilController extends Controller
      */
     public function update(Request $request)
     {
+        // dd($request->all());
         $rules = [
             'nama' => 'required|string',
-            'username' => 'required|unique:users,username',
+            'email' => 'required|unique:users,email,'.auth()->guard('web')->user()->id,
         ];
 
         $pesan = [
             'nama.required' => 'Nama Lengkap Wajib Diisi!',
-            'username.required' => 'Username Wajib Diisi!',
-            'username.unique' => 'Username Sudah Terdaftar!',
+            'email.required' => 'email Wajib Diisi!',
+            'email.unique' => 'email Sudah Terdaftar!',
         ];
 
         $validator = Validator::make($request->all(), $rules, $pesan);
@@ -55,7 +56,10 @@ class ProfilController extends Controller
                 
                 $data = User::where('id', auth()->user()->id)->first();
                 $data->nama = $request->nama;
-                $data->username = $request->username;
+                $data->email = $request->email;
+                $data->jk = $request->jk;
+                $data->hp = $request->hp;
+                $data->alamat = $request->alamat;
                 $data->save();
 
             }catch(\QueryException $e){
@@ -70,7 +74,6 @@ class ProfilController extends Controller
 
     public function password(Request $request): View
     {   
-        dd('asd');
         return view('landing.password', [
             'user' => $request->user(),
         ]);

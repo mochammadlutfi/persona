@@ -52,4 +52,10 @@ class HomeController extends Controller
 
         return view('landing.about');
     }
+
+    public function ceo(){
+
+
+        return view('landing.ceo');
+    }
 }

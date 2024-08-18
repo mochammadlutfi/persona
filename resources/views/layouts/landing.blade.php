@@ -46,9 +46,22 @@
                     <div class="d-flex">
                         <ul class="nav-main nav-main-horizontal nav-main-hover me-2">
                             <li class="nav-main-item">
-                                <a class="nav-main-link" href="{{ route('about') }}">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu"
+                                    aria-haspopup="true" aria-expanded="true" href="#">
                                     <span class="nav-main-link-name">Tentang</span>
                                 </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="{{ route('about.ceo')}}">
+                                            <span class="nav-main-link-name">Sambutan CEO</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="{{ route('about.perusahaan')}}">
+                                            <span class="nav-main-link-name">Tentang Perusahaan</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-main-item">
                                 <a class="nav-main-link" href="{{ route('training.index') }}">

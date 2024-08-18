@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/','HomeController@index')->name('home');
-Route::get('/tentang-kami','HomeController@about')->name('about');
+
+Route::name('about.')->group(function () {
+    Route::get('/tentang-kami','HomeController@about')->name('perusahaan');
+    Route::get('/sambutan-ceo','HomeController@ceo')->name('ceo');
+});
 
 Route::get('/login','AuthController@showLogin')->name('login');
 Route::post('/login','AuthController@login');
@@ -165,6 +169,12 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
                 Route::get('/{id}/edit','ProgramController@edit')->name('edit');
                 Route::post('/{id}/update','ProgramController@update')->name('store');
                 Route::delete('/{id}/delete','ProgramController@destroy')->name('delete');
+            });
+
+            
+            Route::prefix('/laporan')->name('laporan.')->group(function () {
+                Route::get('/','LaporanController@index')->name('index');
+                Route::get('/pdf','LaporanController@pdf')->name('pdf');
             });
         });
     });
