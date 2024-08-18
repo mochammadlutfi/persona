@@ -198,7 +198,6 @@ class RequestController extends Controller
     
     public function trainer($id, Request $request)
     {
-        // dd($request->all());
         DB::beginTransaction();
         try{
             $data = Pengajuan::where('id', $id)->first();
@@ -212,7 +211,7 @@ class RequestController extends Controller
             dd($e);
         }
 
-        // DB::commit();
+        DB::commit();
         return redirect()->back();
     }
 

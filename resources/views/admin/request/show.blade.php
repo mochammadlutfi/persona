@@ -10,8 +10,7 @@
                   </button>
                 @endif
 
-                @if ($data->status == 'Disetujui' && $data->trainer_id)
-                    
+                @if ($data->status == 'Disetujui' && $data->trainer_id == "")
                 <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#trainerModal">
                     <i class="fa fa-check me-1"></i>
                     Pilih Trainer
@@ -43,6 +42,9 @@
                                 @endif
                             </x-slot>
                         </x-field-read>
+                        @if($data->trainer_id)
+                        <x-field-read label="Trainer" value="{{ $data->trainer->nama }}"/>  
+                        @endif
                     </div>
                     <div class="col-md-6">               
                         <x-field-read label="Tanggal Training" value="{{ \Carbon\Carbon::parse($data->tgl)->translatedFormat('d F Y H:i') }} WIB"/>
@@ -145,7 +147,7 @@
                         <div class="block-content block-content-full block-content-sm text-end border-top">
                             <form action="{{ route('admin.request.status', $data->id )}}" method="POST">
                                 @csrf
-                                <button type="submit" name="status" value="Ditolak" class="btn btn-alt-secondary" data-bs-dismiss="modal">
+                                <button type="submit" name="status" value="Ditolak" class="btn btn-danger" data-bs-dismiss="modal">
                                     Tolak
                                  </button>
                                 <button type="submit"name="status" value="Disetujui"  class="btn btn-primary">
