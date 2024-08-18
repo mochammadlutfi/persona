@@ -9,6 +9,14 @@
                     Konfirmasi Pengajuan
                   </button>
                 @endif
+
+                @if ($data->status == 'Disetujui' && $data->trainer_id)
+                    
+                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#trainerModal">
+                    <i class="fa fa-check me-1"></i>
+                    Pilih Trainer
+                  </button>
+                @endif
             </div>
         </div>
         <div class="block block-rounded">
@@ -145,6 +153,38 @@
                                 </button>
                             </form>
                         </div>
+                    </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="trainerModal" tabindex="-1" aria-labelledby="trainerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title">Pilih Trainer</h3>
+                            <div class="block-options">
+                                <button
+                                    type="button"
+                                    class="btn-block-option"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <form action="{{ route('admin.request.trainer', $data->id )}}" method="POST">
+                            @csrf
+                        <div class="block-content">
+                            <x-select-field name="trainer_id" id="trainer_id" label="Pilih Trainer" required :options="$trainer"/>
+                        </div>
+                        <div class="block-content block-content-full block-content-sm text-end border-top">
+                            <button type="submit" class="btn btn-primary">
+                                Simpan
+                            </button>
+                        </div>
+                    </form>
                     </div>
             </div>
             </div>

@@ -61,6 +61,11 @@
                                             <span class="nav-main-link-name">Tentang Perusahaan</span>
                                         </a>
                                     </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link" href="{{ route('about.trainer')}}">
+                                            <span class="nav-main-link-name">Trainer</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-main-item">

@@ -3,7 +3,7 @@
         <div class="content-heading d-flex justify-content-between align-items-center">
             <span>Data Trainer</span>
             <div class="space-x-1">
-                <a href="{{ route('admin.user.create') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('admin.trainer.create') }}" class="btn btn-sm btn-primary">
                     <i class="fa fa-plus me-1"></i>
                     Tambah Trainer
                 </a>
@@ -22,6 +22,28 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data as $d)
+                            <tr>
+                                <td>{{ $loop->index+1 }}</td>
+                                <td>
+                                    <img src="{{ $d->foto }}" style="width:150px"/>
+                                </td>
+                                <td>{{ $d->nama }}</td>
+                                <td>
+                                    {{ $d->biografi }}
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" id="dropdown-default-outline-primary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Aksi
+                                        </button>
+                                        <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-outline-primary" style="">
+                                        <a class="dropdown-item" href="{{ route('admin.trainer.edit', $d->id) }}"><i class="si si-note me-1"></i>Ubah</a>
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="hapus({{ $d->id }})"><i class="si si-trash me-1"></i>Hapus</a>
+                                    </div></div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -32,24 +54,8 @@
         <script>
             $(function () {
                 $('.datatable').DataTable({
-                    processing: true,
-                    serverSide: true,
                     dom : "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-                    ajax: "{{ route('admin.user.index') }}",
-                    columns: [
-                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                        {data: 'nama', name: 'nama'},
-                        {data: 'hp', name: 'hp'},
-                        {data: 'email', name: 'email'},
-                        {data: 'created_at', name: 'created_at'},
-                        {
-                            data: 'action', 
-                            name: 'action', 
-                            orderable: true, 
-                            searchable: true
-                        },
-                    ]
-                });
+                    });
             });
         function hapus(id){
             Swal.fire({
@@ -61,7 +67,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/admin/pelanggan/"+ id +"/delete",
+                        url: "/admin/trainer/"+ id +"/delete",
                         type: "DELETE",
                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                         success: function(data) {
@@ -75,7 +81,7 @@
                                     icon: 'success',
                                     position : 'top-end'
                                 }).then((result) => {
-                                    window.location.replace("{{ route('admin.user.index') }}");
+                                    window.location.replace("{{ route('admin.trainer.index') }}");
                                 });
                             }else{
                                 Swal.fire({

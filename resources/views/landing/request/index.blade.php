@@ -37,7 +37,7 @@
                         Kelas ini membantu anda agar mampu menguasai prinsip & teknik negosiasi secara efektif agar negosiasi dan lobi yang anda lakukan bisa berjalan sukses dan mencapai hasil terbaik.
                     </li>
                     <li>
-                        Etiquette For Public Speaker
+                        <b>Etiquette For Public Speaker</b>
                             <br/>Program pelatihan yang dirancang agar peserta mampu memiliki sikap dan etiket yang berkelas dan profesional.
                         
                     </li>
@@ -47,6 +47,99 @@
                     </li>
                     
                 </ul>
+
+                <h3>Biaya Paket Inhouse Training</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="fs-5 mb-2">Biaya Offline Training</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Durasi</th>
+                                    <th>Peserta</th>
+                                    <th>Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1 Hari</td>
+                                    <td>50 Peserta</td>
+                                    <td>Rp 25 Juta</td>
+                                </tr>
+                                <tr>
+                                    <td>1 Hari</td>
+                                    <td>50-100 Peserta</td>
+                                    <td>Rp 50 Juta</td>
+                                </tr>
+                                <tr>
+                                    <td>1 Hari</td>
+                                    <td>100-150 Peserta</td>
+                                    <td>Rp 75 Juta</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h4 class="fs-5 mb-2">Fasilitas Offline Training</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>Meeting room di hotel</li>
+                                    <li>Modul pelatihan</li>
+                                    <li>Training Kit (Goodie bag dan alat tulis)</li>
+                                    <li>Sertifikat</li>
+                                    <li>1x Lunch</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul>
+                                    
+                                    <li>2x Coffe Break</li>
+                                    <li>Dokumentasi</li>
+                                    <li>Hadiah untuk peserta</li>
+                                    <li>Bonus E-book</li>
+                                    <li>Bonus Template PPT Premium</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="fs-5 mb-2">Biaya Online Training Via Zoom Meeting</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Durasi</th>
+                                    <th>Peserta</th>
+                                    <th>Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1 Hari</td>
+                                    <td>20 Peserta</td>
+                                    <td>Rp 25 Juta</td>
+                                </tr>
+                                <tr>
+                                    <td>1 Hari</td>
+                                    <td>20-40 Peserta</td>
+                                    <td>Rp 50 Juta</td>
+                                </tr>
+                                <tr>
+                                    <td>1 Hari</td>
+                                    <td>40-60 Peserta</td>
+                                    <td>Rp 75 Juta</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h4 class="fs-5 mb-2">Fasilitas Online Training</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>Sertifikat</li>
+                                    <li>File Materi</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <a href="{{ route('request.create')}}" class="btn btn-primary">
                 DAFTAR SEKARANG
                 </a>

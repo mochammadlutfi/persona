@@ -49,15 +49,15 @@ class UserTrainingController extends Controller
                     return $tgl->translatedFormat('d M Y');
                 })
                 ->editColumn('status', function ($row) {
-                    if($row->status == 'belum bayar'){
+                    if($row->status == 'Belum Bayar'){
                         return '<span class="badge bg-danger">Belum Bayar</span>';
                     }else if($row->status == 'sebagian'){
                         return '<span class="badge bg-warning">Sebagian</span>';
-                    }else if($row->status == 'pending'){
+                    }else if($row->status == 'Pending'){
                         return '<span class="badge bg-primary">Menunggu Konfirmasi</span>';
-                    }else if($row->status == 'lunas'){
+                    }else if($row->status == 'Diterima'){
                         return '<span class="badge bg-success">Lunas</span>';
-                    }else if($row->status == 'batal'){
+                    }else if($row->status == 'Ditolak'){
                         return '<span class="badge bg-secondary">Batal</span>';
                     }
                 })

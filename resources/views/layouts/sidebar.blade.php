@@ -59,6 +59,12 @@
                         </a>
                     </li>
                     <li class="nav-main-item">
+                        <a class="nav-main-link {{ request()->is('admin/trainer') ? ' active' : '' }}" href="{{ route('admin.trainer.index') }}">
+                            <i class="nav-main-link-icon fa fa-user-tie"></i>
+                            <span class="nav-main-link-name">Trainer</span>
+                        </a>
+                    </li>
+                    <li class="nav-main-item">
                         <a class="nav-main-link {{ request()->is('admin/laporan') ? ' active' : '' }}" href="{{ route('admin.laporan.index') }}">
                             <i class="nav-main-link-icon fa fa-print"></i>
                             <span class="nav-main-link-name">Laporan</span>

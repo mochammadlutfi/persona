@@ -18,6 +18,7 @@ Route::get('/','HomeController@index')->name('home');
 Route::name('about.')->group(function () {
     Route::get('/tentang-kami','HomeController@about')->name('perusahaan');
     Route::get('/sambutan-ceo','HomeController@ceo')->name('ceo');
+    Route::get('/trainer','HomeController@trainer')->name('trainer');
 });
 
 Route::get('/login','AuthController@showLogin')->name('login');
@@ -57,7 +58,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/profil','ProfilController@update');
         
         Route::get('/password','ProfilController@password')->name('password');
-        Route::post('/password','ProfilController@updatePassword');
+        Route::post('/password','ProfilController@passwordUpdate');
     });
         
     Route::get('/pelatihan-saya','TrainingController@user')->name('user.training');
@@ -97,6 +98,17 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
                 Route::post('{id}/update','UserController@update')->name('update');
                 Route::delete('/{id}/delete','UserController@destroy')->name('delete');
                 Route::get('/{id}/riwayat','UserController@riwayat')->name('riwayat');
+            });
+
+
+            Route::prefix('/trainer')->name('trainer.')->group(function () {
+                Route::get('/','TrainerController@index')->name('index');
+                Route::get('/create','TrainerController@create')->name('create');
+                Route::post('/store','TrainerController@store')->name('store');
+                Route::get('/{id}','TrainerController@show')->name('show');
+                Route::get('/{id}/edit','TrainerController@edit')->name('edit');
+                Route::post('{id}/update','TrainerController@update')->name('update');
+                Route::delete('/{id}/delete','TrainerController@destroy')->name('delete');
             });
 
             Route::prefix('/training')->name('training.')->group(function () {
@@ -159,6 +171,7 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
                 Route::post('/store','RequestController@store')->name('store');
                 Route::get('/{id}','RequestController@show')->name('show');
                 Route::post('/{id}/status','RequestController@status')->name('status');
+                Route::post('/{id}/trainer','RequestController@trainer')->name('trainer');
                 Route::post('{id}/bayar','RequestController@bayar')->name('bayar');
             });
 

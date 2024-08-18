@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Training;
-
+use App\Models\Trainer;
 class HomeController extends Controller
 {
 
@@ -57,5 +57,12 @@ class HomeController extends Controller
 
 
         return view('landing.ceo');
+    }
+
+    public function trainer(){
+
+        $data = Trainer::latest()->get();
+
+        return view('landing.trainer', compact('data'));
     }
 }

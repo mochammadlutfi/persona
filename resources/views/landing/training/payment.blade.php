@@ -84,7 +84,7 @@
                                 </div>
                                 <p>Terimakasih sudah melakukan konfirmasi pembayaran, kami akan segera menghubungi kamu</p>
                             </div>
-                        @elseif($data->status == 'Lunas')
+                        @elseif($data->status == 'Diterima')
                             <div class="row">
                                 <div class="col-md-8">
                                     <x-field-read label="Nama Peserta" value="{{ $data->user->nama }}"/>

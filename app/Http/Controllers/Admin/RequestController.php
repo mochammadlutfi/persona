@@ -12,6 +12,13 @@ use App\Models\Pengajuan;
 use App\Models\Payment;
 use App\Models\User;
 use App\Models\UserTraining;
+use App\Models\Trainer;
+
+
+use App\Mail\TerimaPengajuan;
+use App\Mail\TolakPengajuan;
+use App\Mail\TrainerPengajuan;
+use Illuminate\Support\Facades\Mail;
 
 class RequestController extends Controller
 {
@@ -37,8 +44,11 @@ class RequestController extends Controller
     {
         $data = Pengajuan::where('id', $id)
         ->first();
+
+        $trainer = Trainer::select('id as value' , 'nama as label')->latest()->get();
         return view('admin.request.show',[
             'data' => $data,
+            'trainer' => $trainer,
         ]);
         
     }
@@ -169,6 +179,12 @@ class RequestController extends Controller
             $data = Pengajuan::where('id', $id)->first();
             $data->status = $request->status;
             $data->save();
+
+            if($request->status == 'Disetujui'){
+                Mail::to($data->user->email)->send(new TerimaPengajuan($data));
+            }else{
+                Mail::to($data->user->email)->send(new TolakPengajuan($data));
+            }
         }catch(\QueryException $e){
             DB::rollback();
             dd($e);
@@ -179,6 +195,27 @@ class RequestController extends Controller
     }
 
     
+    
+    public function trainer($id, Request $request)
+    {
+        // dd($request->all());
+        DB::beginTransaction();
+        try{
+            $data = Pengajuan::where('id', $id)->first();
+            $data->trainer_id = $request->trainer_id;
+            $data->save();
+
+            Mail::to($data->user->email)->send(new TrainerPengajuan($data));
+
+        }catch(\QueryException $e){
+            DB::rollback();
+            dd($e);
+        }
+
+        // DB::commit();
+        return redirect()->back();
+    }
+
     public function bayar($id, Request $request)
     {
         // dd($request->all());

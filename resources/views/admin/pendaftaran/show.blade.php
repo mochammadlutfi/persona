@@ -29,7 +29,7 @@
                                     <span class="badge bg-danger px-3">Belum Bayar</span>
                                 @elseif($data->status == 'Pending')
                                 <span class="badge bg-warning px-3">Pending</span>
-                                @elseif($data->status == 'Lunas')
+                                @elseif($data->status == 'Diterima')
                                 <span class="badge bg-success px-3">Lunas</span>
                                 @elseif($data->status == 'Ditolak')
                                 <span class="badge bg-danger px-3">Ditolak</span>
