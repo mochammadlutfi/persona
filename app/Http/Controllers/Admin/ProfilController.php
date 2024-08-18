@@ -105,7 +105,7 @@ class ProfilController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('beranda');
+            return redirect()->route('admin.beranda');
         }
     }
 }
