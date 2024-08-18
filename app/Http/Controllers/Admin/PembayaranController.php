@@ -52,7 +52,7 @@ class PembayaranController extends Controller
                     }else if($row->status == 'Diterima'){
                         return '<span class="badge bg-success">Lunas</span>';
                     }else if($row->status == 'Ditolak'){
-                        return '<span class="badge bg-secondary">Batal</span>';
+                        return '<span class="badge bg-danger">Ditolak</span>';
                     }
                 })
                 ->rawColumns(['action', 'status', 'harga']) 
