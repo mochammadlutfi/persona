@@ -66,14 +66,14 @@ class TrainingController extends Controller
             [
                 'img' => '/images/bni.png',
                 'nama' => 'Bank BNI',
-                'rek' => '0267141517',
+                'rek' => ' 0267141527',
                 'an' => 'Scoria Novrisa Dewi'
             ],
             [
                 'img' => '/images/mandiri.png',
                 'nama' => 'Bank Mandiri',
-                'rek' => '0267141517',
-                'an' => 'Scoria Novrisa Dewi'
+                'rek' => '1320024213929',
+                'an' => 'CV Transformasi Akselerasi Prima'
             ],
         ]);
 

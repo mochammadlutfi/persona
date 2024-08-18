@@ -101,14 +101,14 @@
                                                 <span class="badge bg-danger px-3">Belum Bayar</span>
                                             @elseif($data->status == 'Pending')
                                             <span class="badge bg-warning px-3">Pending</span>
-                                            @elseif($data->status == 'Lunas')
+                                            @elseif($data->status == 'Diterima')
                                             <span class="badge bg-success px-3">Lunas</span>
                                             @elseif($data->status == 'Ditolak')
                                             <span class="badge bg-danger px-3">Ditolak</span>
                                             @else
                                             <span class="badge bg-secondary px-3">Batal</span>
                                             @endif
-                                        </x-slot>
+                                        </x-slot> 
                                     </x-field-read>
             
                                 </div>
