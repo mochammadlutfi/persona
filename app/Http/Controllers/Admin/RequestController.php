@@ -245,4 +245,24 @@ class RequestController extends Controller
         DB::commit();
         return redirect()->back();
     }
+
+    
+    public function report(Request $request)
+    {
+        $tgl = explode(" - ",$request->tgl);
+        $data = Pengajuan::with('user')
+        ->whereBetween('tgl', $tgl)
+        ->latest()->get();
+        $config = [
+            'format' => 'A4-L' // Landscape
+        ];
+
+        $pdf = PDF::loadView('reports.request', [
+            'data' => $data,
+            'tgl' =>$tgl
+        ], [ ], $config);
+
+        return $pdf->stream('Laporan Pengajuan Inhouse.pdf');
+
+    }
 }
